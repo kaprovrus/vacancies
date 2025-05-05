@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TANUKIFAMILY - Вакансии</title>
+    <style>
+        :root {
+            --tanuki-red: #e74c3c;
+            --bella-orange: #e67e22;
+            --kaspi-blue: #3498db;
+            --bg-image: url('112.png');
+            --card-width: 280px;
+            --card-padding: 25px;
+        }
+        
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background: var(--bg-image) no-repeat center center fixed;
+            background-size: cover;
+            min-height: 100vh;
+            position: relative;
+            color: #333;
+        }
+        
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.88);
+            z-index: -1;
+        }
+        
+        .header {
+            background-color: var(--tanuki-red);
+            padding: 30px 0;
+            text-align: center;
+            color: white;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            position: relative;
+            z-index: 10;
+        }
+        
+        .logo {
+            font-size: 2.8rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+        }
+        
+        .slogan {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            opacity: 0.9;
+        }
+        
+        .filters {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 40px auto;
+            max-width: 900px;
+            padding: 0 20px;
+        }
+        
+        .filter-select {
+            padding: 12px 25px;
+            border-radius: 30px;
+            border: none;
+            background-color: white;
+            min-width: 220px;
+            font-size: 1rem;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            background-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .filter-select:hover {
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+            transform: translateY(-2px);
+        }
+        
+        .cards-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 30px 20px;
+            gap: 30px;
+        }
+        
+        .card {
+            width: var(--card-width);
+            min-height: 280px;
+            background-color: var(--tanuki-red);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: center;
+            text-align: center;
+            color: white;
+            padding: var(--card-padding);
+            box-sizing: border-box;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+            z-index: 0;
+        }
+        
+        .card:hover {
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.2);
+            z-index: 2;
+        }
+        
+        .card-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+            z-index: 1;
+        }
+        
+        .bella-chao {
+            background-color: var(--bella-orange);
+        }
+        
+        .kaspiyka {
+            background-color: var(--kaspi-blue);
+        }
+        
+        .position {
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            line-height: 1.3;
+        }
+        
+        .description {
+            font-size: 1.05rem;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .salary {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 12px;
+            color: #fff8e1;
+            padding: 6px 0;
+        }
+        
+        .city {
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            font-style: italic;
+            opacity: 0.9;
+        }
+        
+        .restaurant-name {
+            font-size: 1.1rem;
+            padding: 8px 15px;
+            background-color: rgba(0,0,0,0.25);
+            border-radius: 20px;
+            align-self: center;
+            margin-top: auto;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover .restaurant-name {
+            background-color: rgba(0,0,0,0.4);
+        }
+        
+        .loading, .error-message, .no-vacancies {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.2rem;
+            width: 100%;
+        }
+        
+        .loading {
+            color: #666;
+        }
+        
+        .error-message {
+            color: #d9534f;
+        }
+        
+        .no-vacancies {
+            color: #555;
+        }
+        
+        @media (max-width: 992px) {
+            :root {
+                --card-width: 240px;
+                --card-padding: 22px;
+            }
+            
+            .cards-container {
+                gap: 25px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            :root {
+                --card-width: 220px;
+                --card-padding: 20px;
+            }
+            
+            .logo {
+                font-size: 2.2rem;
+            }
+            
+            .slogan {
+                font-size: 1.1rem;
+            }
+            
+            .filters {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .filter-select {
+                width: 80%;
+                max-width: 300px;
+            }
+            
+            .position {
+                font-size: 1.2rem;
+            }
+            
+            .description {
+                font-size: 0.95rem;
+                -webkit-line-clamp: 5;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            :root {
+                --card-width: 100%;
+                --card-padding: 18px;
+            }
+            
+            .cards-container {
+                gap: 20px;
+                padding: 20px 15px;
+            }
+            
+            .position {
+                font-size: 1.1rem;
+                margin-bottom: 12px;
+            }
+            
+            .description {
+                -webkit-line-clamp: 4;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">TANUKIFAMILY</div>
+        <div class="slogan">Мы набираем команду профессионалов!</div>
+    </div>
+    
+    <div class="filters">
+        <select id="city-filter" class="filter-select" onchange="filterVacancies()">
+            <option value="">Все города</option>
+        </select>
+        <select id="restaurant-filter" class="filter-select" onchange="filterVacancies()">
+            <option value="">Все рестораны</option>
+            <option value="Тануки">Тануки</option>
+            <option value="Белла Чао">Белла Чао</option>
+            <option value="Каспийка">Каспийка</option>
+        </select>
+    </div>
+    
+    <div class="cards-container" id="vacancies-container">
+        <div class="loading">Загрузка вакансий...</div>
+    </div>
+
+    <script>
+        // URL вашего Google Apps Script
+        const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykJDSDT9XKYZ3d7HvEVFbRSLqfEx0mcRQ34AG4AkIwnQ-usXoX3gYdj_UleLoJj2iW/exec';
+        
+        // Данные приложения
+        let allVacancies = [];
+        let filteredVacancies = [];
+        let recruiters = {};
+        let cities = new Set();
+        
+        // Основные функции
+        async function loadData() {
+            try {
+                showLoading();
+                
+                // Параллельная загрузка данных
+                const [recruitersResponse, vacanciesResponse] = await Promise.all([
+                    fetch(`${SCRIPT_URL}?type=recruiters`),
+                    fetch(`${SCRIPT_URL}?type=vacancies`)
+                ]);
+                
+                const [recruitersData, vacanciesData] = await Promise.all([
+                    recruitersResponse.json(),
+                    vacanciesResponse.json()
+                ]);
+                
+                // Обработка данных
+                if (recruitersData.status === 'success' && vacanciesData.status === 'success') {
+                    processRecruiters(recruitersData.recruiters);
+                    processVacancies(vacanciesData.vacancies);
+                    filterVacancies();
+                } else {
+                    throw new Error('Ошибка формата данных');
+                }
+            } catch (error) {
+                console.error('Ошибка загрузки:', error);
+                showError('Ошибка загрузки данных. Пожалуйста, обновите страницу.');
+            }
+        }
+        
+        function processRecruiters(recruitersData) {
+            recruiters = recruitersData.reduce((acc, recruiter) => {
+                if (recruiter.city && recruiter.phone) {
+                    acc[recruiter.city] = {
+                        name: recruiter.name || '',
+                        phone: formatPhone(recruiter.phone),
+                        email: recruiter.email || ''
+                    };
+                }
+                return acc;
+            }, {});
+        }
+        
+        function processVacancies(vacanciesData) {
+            allVacancies = vacanciesData.filter(v => v.restaurant && v.position);
+            cities = new Set(allVacancies.map(v => v.city).filter(city => city));
+            updateCityFilter();
+        }
+        
+        function updateCityFilter() {
+            const citySelect = document.getElementById('city-filter');
+            const currentCity = citySelect.value;
+            
+            citySelect.innerHTML = '<option value="">Все города</option>';
+            
+            // Сортируем города по алфавиту
+            Array.from(cities).sort().forEach(city => {
+                const option = document.createElement('option');
+                option.value = city;
+                option.textContent = city;
+                citySelect.appendChild(option);
+            });
+            
+            // Восстанавливаем выбранное значение
+            if (currentCity && cities.has(currentCity)) {
+                citySelect.value = currentCity;
+            }
+        }
+        
+        function filterVacancies() {
+            const city = document.getElementById('city-filter').value;
+            const restaurant = document.getElementById('restaurant-filter').value;
+            
+            filteredVacancies = allVacancies.filter(v => {
+                return (!city || v.city === city) && 
+                       (!restaurant || v.restaurant === restaurant);
+            });
+            
+            renderVacancies();
+        }
+        
+        function renderVacancies() {
+            const container = document.getElementById('vacancies-container');
+            
+            if (filteredVacancies.length === 0) {
+                container.innerHTML = '<div class="no-vacancies">Нет вакансий по выбранным критериям</div>';
+                return;
+            }
+            
+            container.innerHTML = '';
+            
+            filteredVacancies.forEach(vacancy => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                
+                // Устанавливаем цвет в зависимости от ресторана
+                if (vacancy.restaurant === "Белла Чао") {
+                    card.classList.add('bella-chao');
+                } else if (vacancy.restaurant === "Каспийка") {
+                    card.classList.add('kaspiyka');
+                }
+                
+                // Создаем содержимое карточки
+                card.innerHTML = `
+                    <div class="card-content">
+                        <div class="position">${vacancy.position}</div>
+                        <div class="description">${vacancy.description}</div>
+                        <div class="salary">${vacancy.salary}</div>
+                        <div class="city">${vacancy.city}</div>
+                        <div class="restaurant-name">${vacancy.restaurant}</div>
+                    </div>
+                `;
+                
+                // Добавляем обработчик для связи
+                card.addEventListener('click', () => contactRecruiter(vacancy));
+                container.appendChild(card);
+            });
+        }
+        
+        function contactRecruiter(vacancy) {
+            const recruiter = recruiters[vacancy.city];
+            
+            if (!recruiter || !recruiter.phone) {
+                alert('Рекрутер для этого города не найден');
+                return;
+            }
+            
+            const message = `Здравствуйте${recruiter.name ? ', ' + recruiter.name : ''}!\n\n` +
+                           `Я хочу откликнуться на вакансию:\n\n` +
+                           `*Должность:* ${vacancy.position}\n` +
+                           `*Ресторан:* ${vacancy.restaurant}\n` +
+                           `*Город:* ${vacancy.city}\n\n` +
+                           `Мой номер телефона: `;
+            
+            window.open(`https://wa.me/${recruiter.phone}?text=${encodeURIComponent(message)}`, '_blank');
+        }
+        
+        function formatPhone(phone) {
+            const cleaned = phone.replace(/\D/g, '');
+            if (cleaned.startsWith('7')) return '+' + cleaned;
+            if (cleaned.startsWith('8')) return '+7' + cleaned.substring(1);
+            return '+' + cleaned;
+        }
+        
+        function showLoading() {
+            document.getElementById('vacancies-container').innerHTML = 
+                '<div class="loading">Загрузка данных...</div>';
+        }
+        
+        function showError(message) {
+            document.getElementById('vacancies-container').innerHTML = 
+                `<div class="error-message">${message}</div>`;
+        }
+        
+        // Загрузка данных при старте
+        window.addEventListener('DOMContentLoaded', loadData);
+    </script>
+</body>
+</html>
